@@ -1,26 +1,21 @@
+
+Jenkinsfile (Declarative Pipeline)
+
 pipeline {
     agent any
-    environment {
-      PROJ_BASE_NAME = "${readMavenPom().getProperties().get("project.build.sourceEncoding")}/${readMavenPom().getArtifactId()}"
-      PROJ_TAG = "${readMavenPom().getVersion()}"
-    }
+
     stages {
-        stage('Build Jar') {
+        stage('Build') {
             steps {
-                echo "Building JAR file..."
-                sh 'mvn clean package'
-                echo 'JAR file sucessfully built.'
+                sh 'make' 
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
         }
-        }
-    post {
-        success {
-            script {
-                if (currentBuild.previousBuild?.result == 'FAILURE') {
-                }
+         stage('Print') {
+            steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
             }
         }
-        failure {
-        }
-               }
+    }
 }
+
