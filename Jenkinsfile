@@ -18,13 +18,13 @@ pipeline {
         success {
             script {
                 if (currentBuild.previousBuild?.result == 'FAILURE') {
-                              color: 'good',
+                              color: 'green',
                               message: "The pipeline [${currentBuild.fullDisplayName}] back to normal."
                 }
             }
         }
         failure {
-                      color: 'danger',
+                      color: 'red',
                       message: "The pipeline [${currentBuild.fullDisplayName}] failed."
         }
                }
