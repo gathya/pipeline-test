@@ -3,8 +3,6 @@ pipeline {
     environment {
       PROJ_BASE_NAME = "${readMavenPom().getProperties().get("project.build.sourceEncoding")}/${readMavenPom().getArtifactId()}"
       PROJ_TAG = "${readMavenPom().getVersion()}"
-      IMAGE_LOCAL_NAME = "${IMAGE_BASE_NAME}:${IMAGE_TAG}"
-      IMAGE_FULL_NAME = "${ARTIFACTORY_URL}/${IMAGE_LOCAL_NAME}"
       message: "The pipeline [${PROJ_TAG}] version."
     }
     stages {
